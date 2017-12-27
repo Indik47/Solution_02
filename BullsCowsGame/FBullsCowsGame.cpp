@@ -7,19 +7,18 @@
 using int32 = int;
 using FString = std::string;
 
-FBullCowGame::FBullCowGame()
-{
-	Reset();
-}
+FBullCowGame::FBullCowGame() { Reset(); } //default constructor
 
-int32 FBullCowGame::GetMaxTries() const { return MyMaxTries; }
 int32 FBullCowGame::GetCurrentTry() const { return MyCurrentTry; }
+
 int32 FBullCowGame::GetHiddenWordLength() const { return MyHiddenWord.length(); }
-
-bool FBullCowGame::IsGameWon() const
-{
-	return bGameIsWon;
-
+bool FBullCowGame::IsGameWon() const { return bGameIsWon; }
+	
+void FBullCowGame::SetMaxTries(int32 MaxTries) { MyMaxTries = MaxTries; }
+int32 FBullCowGame::GetMaxTries() const {
+	return MyMaxTries;
+	/*TMap<int32, int32>	WordLengthToMaxTries{ {3,4},{ 4,9 },{ 5,13 },{ 6,15 },{ 7,20 } };
+	return WordLengthToMaxTries[MyHiddenWord.length()]; */
 }
 
 FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess)
@@ -51,11 +50,10 @@ FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess)
 
 void FBullCowGame::Reset()
 {
-	constexpr int32 MAX_TRIES = 8;
 	const FString HIDDEN_WORD = "planet";
 	MyHiddenWord = HIDDEN_WORD;
-	MyMaxTries = MAX_TRIES;
 	MyCurrentTry = 1;
+	//MyMaxTries = 3;
 	bGameIsWon = false;
 }
 EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
